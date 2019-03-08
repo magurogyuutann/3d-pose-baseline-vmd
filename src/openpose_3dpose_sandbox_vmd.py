@@ -151,8 +151,17 @@ def main(_):
                 enc_in[0][13 * 2 + j] = 1.1 * enc_in[0][13 * 2 + j] - 0.1 * enc_in[0][0 * 2 + j]
                 # Neck/Nose
                 enc_in[0][14 * 2 + j] = (enc_in[0][15 * 2 + j] + enc_in[0][13 * 2 + j]) / 2
-                # Spine
-                enc_in[0][12 * 2 + j] = (enc_in[0][0 * 2 + j] + enc_in[0][13 * 2 + j]) / 2
+                # # Spine
+                # enc_in[0][12 * 2 + j] = (enc_in[0][0 * 2 + j] + enc_in[0][13 * 2 + j]) / 2
+
+            # Spine
+            enc_in[0][12 * 2] = (enc_in[0][13 * 2] + enc_in[0][0 * 2]) / 2
+            enc_in[0][12 * 2 + 1] = 0.8 * enc_in[0][13 * 2 + 1] + 0.1 * enc_in[0][0 * 2 + 1] 
+
+            # # Headの傾きに耳を利用する(joints_arrayにないので、直接参照)
+            # enc_in[0][15 * 2 + 0] += (xy[16*2] - xy[17*2]) / 2
+            # Headを少し上げる
+            enc_in[0][15 * 2 + 1] = 0.9 * enc_in[0][15 * 2 + 1]
 
             # set spine
             # spine_x = enc_in[0][24]
@@ -250,6 +259,13 @@ def main(_):
             poses3d_op_xy[15 * 3] += 0.5 * (poses3d_op_xy[14 * 3] - poses3d_op_xy[13 * 3])
             poses3d_op_xy[15 * 3 + 1] += 0.5 * (poses3d_op_xy[14 * 3 + 1] - poses3d_op_xy[13 * 3 + 1])
             poses3d_op_xy[15 * 3 + 2] += 0.5 * (poses3d_op_xy[14 * 3 + 2] - poses3d_op_xy[13 * 3 + 2])
+            
+            # poses3d_op_xy[15 * 3] -= 1 * abs(poses3d_op_xy[14 * 3] - poses3d_op_xy[13 * 3])
+            # poses3d_op_xy[15 * 3 + 1] += 0.3 * (poses3d_op_xy[14 * 3 + 1] - poses3d_op_xy[13 * 3 + 1])
+            # poses3d_op_xy[15 * 3 + 2] += 0.3 * (poses3d_op_xy[14 * 3 + 2] - poses3d_op_xy[13 * 3 + 2])
+            # # Headを調整してからNeck/Noseを調整する
+            # poses3d_op_xy[14 * 3] -= 1 * abs(poses3d_op_xy[14 * 3] - poses3d_op_xy[13 * 3])
+            # poses3d_op_xy[14 * 3 + 1] -= 0.5 * (poses3d_op_xy[14 * 3 + 1] - poses3d_op_xy[13 * 3 + 1])
 
             poses3d_list[frame] = poses3d_op_xy
 

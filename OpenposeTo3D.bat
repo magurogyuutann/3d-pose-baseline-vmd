@@ -38,6 +38,6 @@ IF /I "%IS_DEBUG%" EQU "warn" (
 )
 
 rem ---  python é¿çs
-python src/openpose_3dpose_sandbox_vmd.py --camera_frame --residual --batch_norm --dropout 0.5 --max_norm --evaluateActionWise --use_sh --epochs 200 --load 4874200 --gif_fps 30 --verbose %VERBOSE% --openpose %TARGET_DIR% --person_idx 1
+python src/openpose_3dpose_sandbox_vmd.py --camera_frame --residual --batch_norm --dropout 0.5 --max_norm --evaluateActionWise --epochs 200 --load 4874200 --gif_fps 30 --verbose %VERBOSE% --openpose %TARGET_DIR% --person_idx 1
 
 
